@@ -1,0 +1,51 @@
+//disclaimer: no actual butts present
+
+//generic button styling
+.butt {
+    display: block;
+    border-radius: 4px;
+    text-align: center;
+    padding: 12px 12px 13px 12px;
+    width: 180px;
+    cursor: pointer;
+    margin: 8px;
+    font-size: 20px;
+}
+
+.butt span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: ease-in-out 0.4s;
+}
+
+.butt span:after {
+    content: '\00bb';
+    font-size: 20px;
+    position: absolute;
+    opacity: 0;
+    top: -2px;
+    right: -20px;
+}
+
+.butt:hover {
+    opacity: 0.9;
+}
+
+.butt:hover span {
+    padding-right: 25px;
+    transition: padding ease-in-out 0.4s;
+}
+
+.butt:hover span:after {
+    opacity: 1;
+    right: 0;
+    transition: opacity ease-in-out 0.4s;
+}
+
+//specific button styling
+.navButt {
+    background-color: $color-link;
+    color: #FFFFFF;
+    border: 0px solid transparent;
+}

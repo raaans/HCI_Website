@@ -1,0 +1,41 @@
+//import variables
+@import 'variables';
+
+* {
+    //reset & animate
+    margin: 0;
+    padding: 0;
+    position: relative;
+    //animation: all 400ms;
+    //transition: all 400ms;
+}
+
+body {
+    //import typography styling
+    @import 'typography';
+
+    //import consistent header styling
+    @import 'header';
+
+    //import consistent styling for modal boxes
+    @import 'modal';
+
+    //import consistent footer styling
+    @import 'footer';
+
+    //import consisten button syling
+    @import 'butt';
+
+    //generic body styling
+    overflow-x: hidden;
+    background-color: $color-bg;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    section.content {
+        z-index: $z-content;
+    }
+
+}
