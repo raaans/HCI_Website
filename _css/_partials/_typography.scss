@@ -86,3 +86,10 @@ p span.em {
 span.required {
     color: $color-contrast;
 }
+
+button {
+    text-decoration: none;
+    font-family: $font-head;
+    color: $color-link;
+    border-bottom: 1px solid transparent;
+}
