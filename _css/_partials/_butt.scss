@@ -5,11 +5,7 @@
     display: block;
     border-radius: 4px;
     text-align: center;
-    padding: 12px 12px 13px 12px;
-    width: 180px;
     cursor: pointer;
-    margin: 8px;
-    font-size: 20px;
 }
 
 .butt span {
@@ -48,4 +44,26 @@
     background-color: $color-link;
     color: #FFFFFF;
     border: 0px solid transparent;
+    padding: 12px 12px 13px 12px;
+    width: 180px;
+    margin: 8px;
+    font-size: 20px;
+}
+
+.contButt {
+    background-color: $color-link;
+    font-size: 16px;
+    color: #FFFFFF;
+    border: 0px solid transparent;
+    margin: 8px 0px;
+    padding: 6px 8px 8px 8px;
+    width: 160px;
+}
+
+.contButt span:after {
+    font-size: 18px;
+    position: absolute;
+    opacity: 0;
+    top: -2px;
+    right: -20px;
 }
