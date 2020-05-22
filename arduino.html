@@ -42,8 +42,9 @@
                 <section class="modal videoModal">
                     <div class="modalContent">
                         <span class="modalClose">&times;</span>
-                        <video class="videoContainer" controls>
+                        <video class="videoContainer" controls autoplay muted loop>
                             <source src="videos/ledBlink.mp4" type="video/mp4">
+                            <source src="videos/ledBlink.ogg" type="video/ogg">
                         </video>
                     </div>
                 </section>
@@ -52,7 +53,31 @@
                 <section class="modal codeModal">
                     <div class="modalContent">
                         <span class="modalClose">&times;</span>
-                        <p></p>
+                        <code>
+                            int rLed = 10; <br>
+                            int gLed = 9; <br>
+                            <br>
+                            void setup() { <br>
+                            &nbsp; pinMode(rLed, OUTPUT); <br>
+                            &nbsp; pinMode(gLed, OUTPUT); <br>
+                            } <br>
+                            <br>
+                            void loop() { <br>
+                            &nbsp; digitalWrite(rLed, HIGH); <br>
+                            &nbsp; digitalWrite(gLed, HIGH); <br>
+                            &nbsp; delay(500); <br>
+                            <br>
+                            &nbsp; digitalWrite(gLed, LOW); <br>
+                            &nbsp; delay(500); <br>
+                            <br>
+                            &nbsp; digitalWrite(rLed, LOW); <br>
+                            &nbsp; digitalWrite(gLed, HIGH); <br>
+                            &nbsp; delay(500); <br>
+                            <br>
+                            &nbsp; digitalWrite(gLed, LOW); <br>
+                            &nbsp; delay(500); <br>
+                            }
+                        </code>
                     </div>
                 </section>
             </section>
@@ -65,8 +90,9 @@
                 <section class="modal videoModal">
                     <div class="modalContent">
                         <span class="modalClose">&times;</span>
-                        <video class="videoContainer">
-                            <source src="videos/" />
+                        <video class="videoContainer" controls autoplay muted loop>
+                            <source src="videos/ledBright.mp4" type="video/mp4">
+                            <source src="videos/ledBright.ogg" type="video/ogg">
                         </video>
                     </div>
                 </section>
@@ -75,21 +101,45 @@
                 <section class="modal codeModal">
                     <div class="modalContent">
                         <span class="modalClose">&times;</span>
-                        <p></p>
+                        <code>
+
+                            int rLed = 10; <br>
+                            int gLed = 9; <br>
+                            <br>
+                            void setup() { <br>
+                            &nbsp;pinMode(rLed, OUTPUT); <br>
+                            &nbsp;pinMode(gLed, OUTPUT); <br>
+                            } <br>
+                            <br>
+                            void loop() { <br>
+                            &nbsp;int x = 1; <br>
+                            <br>
+                            &nbsp;for (int i = 0; i > -1; i = i + x) { <br>
+                            &nbsp;&nbsp;analogWrite(rLed, i); <br>
+                            &nbsp;&nbsp;analogWrite(gLed, 255-i);<br>
+                            <br>
+                            &nbsp;&nbsp;if (i == 255) { <br>
+                            &nbsp;&nbsp;&nbsp; x = -1; <br>
+                            &nbsp;&nbsp;} <br>
+                            &nbsp;&nbsp; delay(5); <br>
+                            &nbsp;} <br>
+                            }
+                        </code>
                     </div>
                 </section>
             </section>
 
             <section class="exercise">
                 <h3>6C: This has potentio</h3>
-                <p>Using a potentiometer, you can turn a knob to generate a number by measuring the resistance it has. Knob goes left, number goes down. Knob goes right, number goes up. You can of course use this to control the brightness of LEDs:</p>
+                <p>Using a potentiometer, you can turn a knob to generate a number by measuring the resistance it has. Knob goes left, resistance goes down. Knob goes right, resistance goes up. You can of course use this to control the brightness of LEDs:</p>
 
                 <button class="butt contButt videoButt"><span>Show me a video!</span></button>
                 <section class="modal videoModal">
                     <div class="modalContent">
                         <span class="modalClose">&times;</span>
-                        <video class="videoContainer">
-                            <source src="videos/" />
+                        <video class="videoContainer" controls autoplay muted loop>
+                            <source src="videos/ledPot.mp4" type="video/mp4">
+                            <source src="videos/ledPot.ogg" type="video/ogg">
                         </video>
                     </div>
                 </section>
@@ -97,8 +147,29 @@
                 <button class="butt contButt codeButt"><span>Show me the code!</span></button>
                 <section class="modal codeModal">
                     <div class="modalContent">
-                        <div class="modalClose"></div>
-                        <p></p>
+                        <span class="modalClose">&times;</span>
+                        <code>
+
+                            int rLed = 10;<br>
+                            int gLed = 9;<br>
+                            float sensorValue = 0;<br>
+                            int sensorPin = A0;<br>
+                            <br>
+                            void setup() {<br>
+                            &nbsp;pinMode(rLed, OUTPUT);<br>
+                            &nbsp;pinMode(gLed, OUTPUT);<br>
+                            &nbsp;pinMode(sensorPin, INPUT);<br>
+                            &nbsp;Serial.begin(9600);<br>
+                            }<br>
+                            <br>
+                            void loop() {<br>
+                            &nbsp;sensorValue = analogRead(sensorPin);<br>
+                            &nbsp;Serial.println(sensorValue);<br>
+                            &nbsp;sensorValue&nbsp;=&nbsp;(sensorValue/1023)&nbsp;*&nbsp;255;<br>
+                            &nbsp;analogWrite(rLed, sensorValue); <br>
+                            &nbsp;analogWrite(gLed, 255-sensorValue); <br>
+                            }
+                        </code>
                     </div>
                 </section>
             </section>
@@ -111,8 +182,9 @@
                 <section class="modal videoModal">
                     <div class="modalContent">
                         <span class="modalClose">&times;</span>
-                        <video class="videoContainer">
-                            <source src="videos/" />
+                        <video class="videoContainer" controls autoplay muted loop>
+                            <source src="videos/ledMatrix.mp4" type="video/mp4">
+                            <source src="videos/ledMatrix.ogg" type="video/ogg">
                         </video>
                     </div>
                 </section>
@@ -121,14 +193,160 @@
                 <section class="modal codeModal">
                     <div class="modalContent">
                         <span class="modalClose">&times;</span>
-                        <p></p>
+                        <code>
+
+                            #include "LedControl.h" <br>
+                            <br>
+                            LedControl lc = LedControl(12,11,10,1); <br>
+                            int sensorValue = 0; <br>
+                            int sensorPin = A0; <br>
+                            <br>
+                            void setup() { <br>
+                            &nbsp;lc.shutdown(0,false); <br>
+                            &nbsp;lc.setIntensity(0,9); <br>
+                            &nbsp;lc.clearDisplay(0); <br>
+                            &nbsp;pinMode(sensorPin, INPUT); <br>
+                            &nbsp;Serial.begin(9600); <br>
+                            } <br>
+                            <br>
+                            void loop(){ <br>
+                            &nbsp;sensorValue = analogRead(sensorPin); <br>
+                            &nbsp;sensorValue = map(sensorValue, 0, 1000, 0, 10); <br>
+                            <br>
+                            &nbsp;if (sensorValue == 0) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00101100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00110100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            <br>
+                            &nbsp;else if (sensorValue == 1) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00001000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00101000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00001000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00001000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00001000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sensorValue == 2) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00000100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00111100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sensorValue == 3) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00001000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00000100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sensorValue == 4) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00001100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00010100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00111100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00000100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00000100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sensorValue == 5) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00111100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00100000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00111000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00000100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sensorValue == 6) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00100000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00111000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sensorValue == 7) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00111000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00000100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00001000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00010000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00100000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sensorValue == 8) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sensorValue == 9) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00011100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00000100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sensorValue == 10) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00100110); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B01101001); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B10101011); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00101101); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00101001); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00100110); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;&nbsp;<br>
+                            &nbsp;else { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;delay(10); <br>
+                            } <br>
+                        </code>
                     </div>
                 </section>
             </section>
         </section>
     </main>
 
-    <a href="#top" class="top">&uArr;</a>
+    <div>
+        <a href="#logo" class="top">&uArr;</a>
+    </div>
 </body>
 
 </html>

@@ -136,7 +136,7 @@ body .modal {
   min-width: 100vw;
   height: 100%;
   min-height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
   z-index: 4;
   display: flex;
   justify-content: center;
@@ -151,27 +151,40 @@ body .modal .modalContent {
   box-shadow: 2px 2px 8px 2px #16161d;
   border: 1px solid #FCFCFF;
   border-radius: 8px;
-  padding: 32px;
   z-index: 5;
 }
-body .modal .modalContent h2 {
-  margin-bottom: 12px;
+body .modal .modalContent video {
+  max-width: 100%;
+  border: 0px solid #FCFCFF;
+  border-radius: 8px;
+  z-index: z-modal;
 }
 body .modal .modalContent span.modalClose {
   position: absolute;
   top: 0;
   right: 0;
-  padding: 6px 12px 6px 6px;
+  padding: 6px 14px 6px 6px;
   font-family: "Oswald", sans-serif;
-  font-size: 26px;
-  line-height: 26px;
+  font-size: 32px;
+  line-height: 32px;
   text-align: center;
   color: #16161d;
   cursor: pointer;
   user-select: none;
+  z-index: 6;
 }
 body .modal .modalContent span.modalClose:hover {
   color: #d2b856;
+}
+body .modal.videoModal .modalContent span.modalClose {
+  color: #FCFCFF;
+  text-shadow: 0px 0px 3px #16161d;
+}
+body .modal.codeModal .modalContent {
+  padding: 28px 28px 28px 24px;
+}
+body .modal.codeModal .modalContent code {
+  overflow-x: scroll;
 }
 body .modalVisible {
   opacity: 1;
@@ -323,10 +336,23 @@ main section.exercise {
   margin-top: 6vh;
 }
 
-.modal .modal-content {
-  width: 30vw;
-  min-width: 420px;
-  min-height: 25vh;
+a.top {
+  padding: 7px 9.1px 8px 9.1px;
+  line-height: 16px;
+  background-color: #FCFCFF;
+  border: 1px solid #FCFCFF;
+  border-radius: 50%;
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.5);
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+}
+
+.modal .modalContent {
+  max-height: 80vh;
+  overflow: scroll;
+  width: 96vw;
+  margin: 0px 2vw;
 }
 
 /*# sourceMappingURL=mobile.css.map */

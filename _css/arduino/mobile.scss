@@ -52,11 +52,23 @@ main {
     }
 }
 
+a.top {
+    padding: 7px 9.1px 8px 9.1px;
+    line-height: 16px;
+    background-color: $color-bg;
+    border: 1px solid $color-bg;
+    border-radius: 50%;
+    box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.5);
+    position: fixed;
+    right: 12px;
+    bottom: 12px;
+}
 
 .modal {
-    .modal-content {
-        width: 30vw;
-        min-width: 420px;
-        min-height: 25vh;
+    .modalContent {
+        max-height: 80vh;
+        overflow: scroll;
+        width: 96vw;
+        margin: 0px 2vw;
     }
 }

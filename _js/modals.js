@@ -5,7 +5,7 @@ $(document).ready(function () {
     });
 
     $(".codeButt").click(function () {
-        $(this).next(".videoModal").addClass("modalVisible");
+        $(this).next(".codeModal").addClass("modalVisible");
     });
 
     $(".modalClose").click(function () {
