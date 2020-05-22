@@ -129,7 +129,7 @@ body header nav .subNav.navVisible {
   transition: visibility 0s linear 0.4s, opacity ease-in-out 0.4s, left ease-in-out 0.4s;
 }
 body .modal {
-  position: absolute;
+  position: fixed;
   left: 0px;
   top: 0px;
   width: 100%;
@@ -137,7 +137,7 @@ body .modal {
   height: 100%;
   min-height: 100vh;
   background-color: rgba(0, 0, 0, 0.3);
-  z-index: 5;
+  z-index: 4;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -146,17 +146,18 @@ body .modal {
   transform: scale(1.1);
   transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
 }
-body .modal .modal-content {
+body .modal .modalContent {
   background-color: #FCFCFF;
   box-shadow: 2px 2px 8px 2px #16161d;
   border: 1px solid #FCFCFF;
   border-radius: 8px;
   padding: 32px;
+  z-index: 5;
 }
-body .modal .modal-content h2 {
+body .modal .modalContent h2 {
   margin-bottom: 12px;
 }
-body .modal .modal-content span.modal-close {
+body .modal .modalContent span.modalClose {
   position: absolute;
   top: 0;
   right: 0;
@@ -169,10 +170,10 @@ body .modal .modal-content span.modal-close {
   cursor: pointer;
   user-select: none;
 }
-body .modal .modal-content span.modal-close:hover {
+body .modal .modalContent span.modalClose:hover {
   color: #d2b856;
 }
-body .show-modal {
+body .modalVisible {
   opacity: 1;
   visibility: visible;
   transform: scale(1);
