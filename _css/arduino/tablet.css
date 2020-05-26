@@ -322,8 +322,8 @@ header nav section#mainNav {
 }
 
 main {
-  width: 90vw;
-  margin: 5vh 5vw;
+  width: 80vw;
+  margin: 5vh 10vw;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -353,4 +353,4 @@ a.top {
   margin: 0px 2vw;
 }
 
-/*# sourceMappingURL=mobile.css.map */
+/*# sourceMappingURL=tablet.css.map */

@@ -291,66 +291,58 @@ body section.content {
 
 header {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid #8b939b;
   width: 90vw;
-  height: 10vh;
-  padding: 5vw 0px;
   margin: 0px 5vw;
 }
 header #logo {
-  margin: 4vh 0px;
-  height: 10vh;
-  width: 10vh;
+  height: 20vw;
+  width: 20vw;
   background-image: url(../../icons/HCI.svg);
   background-repeat: no-repeat;
   background-position: center;
 }
-header nav {
+
+nav {
   width: 100%;
   height: 50%;
+  margin-top: 10vw;
 }
-header nav section {
+nav section {
   position: absolute;
   top: 0px;
   left: calc(50vw - 110px);
 }
-header nav section#mainNav {
+nav section#mainNav {
   top: 25px;
 }
 
-main {
-  width: 90vw;
-  margin: 5vh 5vw;
+section.content {
+  min-height: 70vh;
+  width: 96vw;
+  margin: 0.4vh 2vw 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+section.content main {
+  width: 100%;
+  height: 70vh;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
 }
-main section.exercise {
-  margin-top: 6vh;
+
+.modal .modal-content {
+  width: 30vw;
+  min-width: 420px;
+  min-height: 25vh;
 }
 
-a.top {
-  padding: 7px 9.1px 8px 9.1px;
-  line-height: 16px;
-  background-color: #FCFCFF;
-  border: 1px solid #FCFCFF;
-  border-radius: 50%;
-  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.5);
-  position: fixed;
-  right: 12px;
-  bottom: 12px;
-}
-
-.modal .modalContent {
-  max-height: 80vh;
-  overflow: scroll;
-  width: 96vw;
-  margin: 0px 2vw;
-}
-
-/*# sourceMappingURL=mobile.css.map */
+/*# sourceMappingURL=desktop.css.map */

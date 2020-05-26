@@ -102,31 +102,29 @@ body header {
   z-index: 3;
 }
 body header #logo:hover {
-  border-bottom: 0px solid transparent;
+  border-bottom: 1px solid transparent;
 }
-body header nav #mainNav {
-  transition: visibility 0s linear 0.4s, opacity ease-in-out 0.4s, left ease-in-out 0.4s;
+body nav #mainNav {
+  transition: visibility 0s linear 0.4s, opacity ease-in 0.4s;
 }
-body header nav #projectsSubNav {
-  transition: visibility 0s linear 0.4s, opacity ease-in-out 0.4s, left ease-in-out 0.4s;
+body nav #projectsSubNav {
+  transition: visibility 0s linear 0.4s, opacity ease-in 0.4s;
 }
-body header nav .navHidden {
+body nav .navHidden {
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0s linear 0.4s, opacity ease-in-out 0.4s;
+  transition: visibility 0s linear 0.4s, opacity ease-in 0.4s;
 }
-body header nav .navVisible {
+body nav .navVisible {
   visibility: visible;
   opacity: 1;
-  transition: visibility 0s linear 0.4s, opacity ease-in-out 0.4s;
+  transition: visibility 0s linear 0.4s, opacity ease-in 0.4s;
 }
-body header nav #mainNav.navHidden {
-  left: -5vw;
-  transition: visibility 0s linear 0.4s, opacity ease-in-out 0.4s, left ease-in-out 0.4s;
+body nav #mainNav.navHidden {
+  transition: visibility 0s linear 0.4s, opacity ease-in 0.4s;
 }
-body header nav .subNav.navVisible {
-  left: 0vw;
-  transition: visibility 0s linear 0.4s, opacity ease-in-out 0.4s, left ease-in-out 0.4s;
+body nav .subNav.navVisible {
+  transition: visibility 0s linear 0.4s, opacity ease-in 0.4s;
 }
 body .modal {
   position: fixed;
@@ -306,16 +304,17 @@ header #logo {
   background-repeat: no-repeat;
   background-position: center;
 }
-header nav {
+
+nav {
   width: 100%;
   height: 50%;
 }
-header nav section {
+nav section {
   position: absolute;
   top: 0px;
   left: calc(50vw - 110px);
 }
-header nav section#mainNav {
+nav section#mainNav {
   top: 25px;
 }
 

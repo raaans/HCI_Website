@@ -2,40 +2,38 @@ header {
     z-index: $z-header;
 
     #logo:hover {
-        border-bottom: 0px solid transparent;
+        border-bottom: 1px solid transparent;
+    }
+}
+
+nav {
+
+    #mainNav {
+        transition: visibility 0s linear 0.4s, opacity ease-in 0.4s;
     }
 
-    nav {
-
-        #mainNav {
-            transition: visibility 0s linear 0.4s, opacity ease-in-out 0.4s, left ease-in-out 0.4s
-        }
-
-        #projectsSubNav {
-            transition: visibility 0s linear 0.4s, opacity ease-in-out 0.4s, left ease-in-out 0.4s
-        }
-
-        .navHidden {
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0s linear 0.4s, opacity ease-in-out 0.4s;
-        }
-
-        .navVisible {
-            visibility: visible;
-            opacity: 1;
-            transition: visibility 0s linear 0.4s, opacity ease-in-out 0.4s;
-        }
-
-        #mainNav.navHidden {
-            left: -5vw;
-            transition: visibility 0s linear 0.4s, opacity ease-in-out 0.4s, left ease-in-out 0.4s
-        }
-
-        .subNav.navVisible {
-            left: 0vw;
-            transition: visibility 0s linear 0.4s, opacity ease-in-out 0.4s, left ease-in-out 0.4s
-        }
-
+    #projectsSubNav {
+        transition: visibility 0s linear 0.4s, opacity ease-in 0.4s;
     }
+
+    .navHidden {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s linear 0.4s, opacity ease-in 0.4s;
+    }
+
+    .navVisible {
+        visibility: visible;
+        opacity: 1;
+        transition: visibility 0s linear 0.4s, opacity ease-in 0.4s;
+    }
+
+    #mainNav.navHidden {
+        transition: visibility 0s linear 0.4s, opacity ease-in 0.4s;
+    }
+
+    .subNav.navVisible {
+        transition: visibility 0s linear 0.4s, opacity ease-in 0.4s;
+    }
+
 }
