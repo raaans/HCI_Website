@@ -25,12 +25,12 @@
     </header>
 
     <main>
-        <section class="">
+        <section class="intro">
             <h1>Arduino workshops</h1>
             <p>In these workshops, we learn to program hardware (such as servo-motors, LED displays, etc) with the help of an Adruino Uno; a small board with a simple microcontroller on it.</p>
         </section>
 
-        <section>
+        <section class="content">
             <h2 id="workshop1">Workshop 1</h2>
             <p>In the first workshop, there were 7 exercises. I'll show you four of the things I programmed in this challenge:</p>
 
@@ -337,6 +337,295 @@
                             &nbsp;} <br>
                             &nbsp;delay(10); <br>
                             } <br>
+                        </code>
+                    </div>
+                </section>
+            </section>
+
+            <section class="exercise">
+                <h3>9B: Music to my ears</h3>
+                <p>In this exercise, I used the small speaker that came in the kit to make some noise. I used the bass part of "Weird Autumn" from the amazing <a href="https://store.steampowered.com/app/481510/Night_in_the_Woods/" target="_blank">Night in the Woods</a> video game.</p>
+
+                <button class="butt contButt videoButt"><span>Show me a video!</span></button>
+                <section class="modal videoModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <video class="videoContainer" controls muted loop>
+                            <source src="videos/nitwMelody.mp4" type="video/mp4">
+                            <source src="videos/nitwMelody.ogg" type="video/ogg">
+                        </video>
+                    </div>
+                </section>
+
+                <button class="butt contButt codeButt"><span>Show me the code!</span></button>
+                <section class="modal codeModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <code>
+                            int speakerPin = 8; <br />
+                            int b2 = 123; <br />
+                            int b3 = 245; <br />
+                            int c3 = 131; <br />
+                            int d3 = 147; <br />
+                            int e3 = 165; <br />
+                            int f3 = 175; <br />
+                            int g3 = 196; <br />
+                            int dur = 1000; <br />
+                            int del = 300; <br />
+                            <br />
+                            void setup() { <br />
+                            &nbsp;pinMode(speakerPin, OUTPUT); <br />
+                            } <br />
+                            <br />
+                            void loop() { <br />
+                            &nbsp;tone(speakerPin, e3); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, f3); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, g3); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, b3); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, b2); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, c3); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, d3); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, f3); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, e3); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, e3); <br />
+                            &nbsp;delay(100); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, e3); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, d3); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;noTone(speakerPin); <br />
+                            &nbsp;delay(1000); <br />
+                            }
+                        </code>
+                    </div>
+                </section>
+            </section>
+
+            <section class="exercise">
+                <h3>9D: DIY</h3>
+                <p>Using other people's music isn't fun at all. Why not make your own with a theremin?</p>
+
+                <p>In this exersize, I used the light sensor to change the tone of the speaker. Lots of light = high pitch, low light = low pitch.</p>
+
+                <button class="butt contButt videoButt"><span>Show me a video!</span></button>
+                <section class="modal videoModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <video class="videoContainer" controls muted loop>
+                            <source src="videos/theremin.mp4" type="video/mp4">
+                            <source src="videos/theremin.ogg" type="video/ogg">
+                        </video>
+                    </div>
+                </section>
+
+                <button class="butt contButt codeButt"><span>Show me the code!</span></button>
+                <section class="modal codeModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <code>
+                            int speakerPin = 8; <br />
+                            int b2 = 123; <br />
+                            int b3 = 245; <br />
+                            int c3 = 131; <br />
+                            int d3 = 147; <br />
+                            int e3 = 165; <br />
+                            int f3 = 175; <br />
+                            int g3 = 196; <br />
+                            int dur = 1000; <br />
+                            int del = 300; <br />
+                            <br />
+                            void setup() { <br />
+                            &nbsp;pinMode(speakerPin, OUTPUT); <br />
+                            } <br />
+                            <br />
+                            void loop() { <br />
+                            &nbsp;tone(speakerPin, e3); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, f3); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, g3); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, b3); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, b2); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, c3); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, d3); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, f3); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, e3); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, e3); <br />
+                            &nbsp;delay(100); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, e3); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;tone(speakerPin, d3); <br />
+                            &nbsp;delay(del); <br />
+                            <br />
+                            &nbsp;noTone(speakerPin); <br />
+                            &nbsp;delay(1000); <br />
+                            }
+                        </code>
+                    </div>
+                </section>
+            </section>
+
+            <section class="exercise">
+                <h3>10D: Hot Stuff</h3>
+                <p>We've seen LEDs that turn off and on. We've seen LEDs that turn off and on, but slowly. We've even seen LEDs that are controlled by ambient light. But have you seen LEDs that are controlled by body heat? Don't think so!</p>
+
+                <p>In this exersize, I used a thermal resistor to make sure the LED is on when it reaches the middle point between the ambient temperature and my skin temperature.</p>
+
+                <button class="butt contButt videoButt"><span>Show me a video!</span></button>
+                <section class="modal videoModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <video class="videoContainer" controls muted loop>
+                            <source src="videos/hotStuff.mp4" type="video/mp4">
+                            <source src="videos/hotStuff.ogg" type="video/ogg">
+                        </video>
+                    </div>
+                </section>
+
+                <button class="butt contButt codeButt"><span>Show me the code!</span></button>
+                <section class="modal codeModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <code>
+                            int led = 13;<br>
+                            int sense = A0;<br>
+                            <br>
+                            void setup() {<br>
+                            &nbsp;pinMode(led, OUTPUT);<br>
+                            &nbsp;pinMode(sense, INPUT);<br>
+                            &nbsp;Serial.begin(9600);<br>
+                            }<br>
+                            <br>
+                            void loop() {<br>
+                            &nbsp;int val = analogRead(sense);<br>
+                            &nbsp;// read sensorpin<br>
+                            &nbsp;Serial.println(val); // print to serial monitor<br>
+                            &nbsp;delay(10); // wait<br>
+                            <br>
+                            &nbsp;if(val > 538) {<br>
+                            &nbsp;&nbsp;analogWrite(led, 255);<br>
+                            &nbsp;}<br>
+                            &nbsp;else {<br>
+                            &nbsp;&nbsp;analogWrite(led, 0);<br>
+                            &nbsp;}<br>
+                            }<br>
+                        </code>
+                    </div>
+                </section>
+            </section>
+
+            <section class="exercise">
+                <h3>11D: Stay away</h3>
+                <p>The kit came with a radar, so we can't let that go unused. In this exercise, we use the arduino and the radar to measure the distance between the arduino and whatever is in front of the radar.</p>
+
+                <p>If there is an object or person less than 140cm away, the red light comes on. If the object is between 140 and 160cm away, the yellow light is on instead. Otherwise, the green light is there to tell you all's well.</p>
+
+                <button class="butt contButt videoButt"><span>Show me a video!</span></button>
+                <section class="modal videoModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <video class="videoContainer" controls muted loop>
+                            <source src="videos/distance.mp4" type="video/mp4">
+                            <source src="videos/distance.ogg" type="video/ogg">
+                        </video>
+                    </div>
+                </section>
+
+                <button class="butt contButt codeButt"><span>Show me the code!</span></button>
+                <section class="modal codeModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <code>
+                            const int echoPin = 6;<br>
+                            const int trigPin = 7;<br>
+                            int rLed = 9;<br>
+                            int yLed = 5;<br>
+                            int gLed = 3;<br>
+                            <br>
+                            void setup() {<br>
+                            &nbsp;pinMode(echoPin, INPUT);<br>
+                            &nbsp;pinMode(trigPin, OUTPUT);<br>
+                            &nbsp;pinMode(rLed, OUTPUT);<br>
+                            &nbsp;pinMode(yLed, OUTPUT);<br>
+                            &nbsp;pinMode(gLed, OUTPUT);<br>
+                            &nbsp;Serial.begin(9600);<br>
+                            }<br>
+                            <br>
+                            void loop() {<br>
+                            &nbsp;// send a pulse<br>
+                            &nbsp;digitalWrite(trigPin, LOW);<br>
+                            &nbsp;delayMicroseconds(2);<br>
+                            &nbsp;digitalWrite(trigPin, HIGH);<br>
+                            &nbsp;delayMicroseconds(5);<br>
+                            &nbsp;digitalWrite(trigPin, LOW);<br>
+                            &nbsp;// wait for the echo<br>
+                            &nbsp;long duration = pulseIn(echoPin, HIGH);<br>
+                            <br>
+                            &nbsp;int cm = duration / 29 / 2;<br>
+                            &nbsp;Serial.print(cm);<br>
+                            &nbsp;Serial.println();<br>
+                            &nbsp;delay(100);<br>
+                            <br>
+                            &nbsp;//if the measured distance is lower than 50 cm, turn on LED<br>
+                            &nbsp;if(cm &lt; 140) {<br>
+                            &nbsp;&nbsp;analogWrite(rLed, 255);<br>
+                            &nbsp;&nbsp;analogWrite(yLed, 0);<br>
+                            &nbsp;&nbsp;analogWrite(gLed, 0);<br>
+                            &nbsp;}<br>
+                            <br>
+                            &nbsp;else if (cm &lt; 170 &amp;&amp; (cm > 140)) {<br>
+                            &nbsp;&nbsp;analogWrite(rLed, 0);<br>
+                            &nbsp;&nbsp;analogWrite(yLed, 255);<br>
+                            &nbsp;&nbsp;analogWrite(gLed, 0);<br>
+                            &nbsp;}<br>
+                            <br>
+                            &nbsp;else {<br>
+                            &nbsp;&nbsp;analogWrite(rLed, 0);<br>
+                            &nbsp;&nbsp;analogWrite(yLed, 0);<br>
+                            &nbsp;&nbsp;analogWrite(gLed, 255);<br>
+                            &nbsp;}<br>
+                            <br>
+                            &nbsp;delay(100);<br>
+                            }
                         </code>
                     </div>
                 </section>
