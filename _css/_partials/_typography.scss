@@ -73,10 +73,15 @@ a {
     font-size: 16px;
     color: $color-link;
     border-bottom: 1px solid transparent;
+    cursor: pointer;
 }
 
 a:hover {
     border-color: $color-link;
+}
+
+nav a {
+    font-family: $font-head;
 }
 
 p span.em {

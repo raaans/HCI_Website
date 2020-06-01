@@ -45,7 +45,7 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
 
     section.exercise {
         margin-top: 6vh;
