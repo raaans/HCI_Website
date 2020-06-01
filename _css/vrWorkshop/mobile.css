@@ -1,0 +1,356 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: #FCFCFF;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+}
+body h1 {
+  font-family: "Oswald", sans-serif;
+  color: #16161d;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 32px;
+  line-height: 48px;
+  align-self: center;
+}
+body h2,
+body li.article {
+  text-align: left;
+  font-family: "Oswald", sans-serif;
+  color: #B856D2;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 32px;
+}
+body h3 {
+  font-family: "Oswald", sans-serif;
+  color: #B856D2;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 24px;
+}
+body li h4 {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 28px;
+  text-align: justify;
+  margin-bottom: 4px;
+  color: #16161d;
+}
+body p {
+  font-family: "Lato", sans-serif;
+  color: #16161d;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: justify;
+  margin-bottom: 16px;
+  color: #16161d;
+}
+body li {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 22px;
+  text-align: justify;
+  margin-bottom: 8px;
+  color: #16161d;
+}
+body .text-centered {
+  text-align: center;
+}
+body a {
+  text-decoration: none;
+  font-family: "Lato", sans-serif;
+  font-size: 16px;
+  color: #B856D2;
+  border-bottom: 1px solid transparent;
+}
+body a:hover {
+  border-color: #B856D2;
+}
+body p span.em {
+  color: black;
+}
+body span.required {
+  color: #d2b856;
+}
+body button {
+  text-decoration: none;
+  font-family: "Oswald", sans-serif;
+  color: #B856D2;
+  border-bottom: 1px solid transparent;
+}
+body header {
+  z-index: 3;
+}
+body header #logo:hover {
+  border-bottom: 1px solid transparent;
+}
+body nav #mainNav {
+  transition: visibility 0s linear 0.4s, opacity ease-in 0.4s;
+}
+body nav #projectsSubNav {
+  transition: visibility 0s linear 0.4s, opacity ease-in 0.4s;
+}
+body nav .navHidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 0.4s, opacity ease-in 0.4s;
+}
+body nav .navVisible {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s linear 0.4s, opacity ease-in 0.4s;
+}
+body nav #mainNav.navHidden {
+  transition: visibility 0s linear 0.4s, opacity ease-in 0.4s;
+}
+body nav .subNav.navVisible {
+  transition: visibility 0s linear 0.4s, opacity ease-in 0.4s;
+}
+body .modal {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  min-width: 100vw;
+  height: 100%;
+  min-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.1);
+  transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+}
+body .modal .modalContent {
+  background-color: #FCFCFF;
+  box-shadow: 2px 2px 8px 2px #16161d;
+  border: 1px solid #FCFCFF;
+  border-radius: 8px;
+  z-index: 5;
+}
+body .modal .modalContent video {
+  max-width: 100%;
+  border: 0px solid #FCFCFF;
+  border-radius: 8px;
+  z-index: z-modal;
+}
+body .modal .modalContent span.modalClose {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 6px 14px 6px 6px;
+  font-family: "Oswald", sans-serif;
+  font-size: 32px;
+  line-height: 32px;
+  text-align: center;
+  color: #16161d;
+  cursor: pointer;
+  user-select: none;
+  z-index: 6;
+}
+body .modal .modalContent span.modalClose:hover {
+  color: #d2b856;
+}
+body .modal.videoModal .modalContent span.modalClose {
+  color: #FCFCFF;
+  text-shadow: 0px 0px 3px #16161d;
+}
+body .modal.codeModal .modalContent {
+  padding: 28px 28px 28px 24px;
+}
+body .modal.codeModal .modalContent code {
+  overflow-x: scroll;
+}
+body .modalVisible {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+body footer {
+  border-top: 1px solid #090B0C;
+  width: 80vw;
+  padding: 24px 0px;
+  z-index: 3;
+}
+body footer div#footer-content {
+  display: flex;
+  margin: 0 auto;
+}
+body footer div#footer-content section ul li {
+  list-style-type: none;
+  font-family: "Oswald", sans-serif;
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 300;
+}
+body footer div#footer-content section ul li a {
+  font-weight: 500;
+}
+body footer div#footer-content section ul li.list-head {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+body footer section.text-centered {
+  width: 100%;
+  margin-top: 32px;
+}
+body footer section.text-centered a {
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #16161d;
+  font-family: "Lato", sans-serif;
+  border-bottom: 1px solid #B856D2;
+}
+body footer section.text-centered a:hover {
+  border-color: transparent;
+}
+body .butt {
+  display: block;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+}
+body .butt span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: ease-in-out 0.4s;
+}
+body .butt span:after {
+  content: "»";
+  font-size: 20px;
+  position: absolute;
+  opacity: 0;
+  top: -2px;
+  right: -20px;
+}
+body .butt:hover {
+  opacity: 0.9;
+}
+body .butt:hover span {
+  padding-right: 25px;
+  transition: padding ease-in-out 0.4s;
+}
+body .butt:hover span:after {
+  opacity: 1;
+  right: 0;
+  transition: opacity ease-in-out 0.4s;
+}
+body .navButt {
+  background-color: #B856D2;
+  color: #FFFFFF;
+  border: 0px solid transparent;
+  padding: 12px 12px 13px 12px;
+  width: 180px;
+  margin: 8px;
+  font-size: 20px;
+}
+body .contButt {
+  background-color: #B856D2;
+  font-size: 16px;
+  color: #FFFFFF;
+  border: 0px solid transparent;
+  margin: 8px 0px;
+  padding: 6px 8px 8px 8px;
+  width: 160px;
+}
+body .contButt span:after {
+  font-size: 18px;
+  position: absolute;
+  opacity: 0;
+  top: -2px;
+  right: -20px;
+}
+body section.content {
+  z-index: 2;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #8b939b;
+  width: 90vw;
+  height: 10vh;
+  padding: 5vw 0px;
+  margin: 0px 5vw;
+}
+header #logo {
+  margin: 4vh 0px;
+  height: 10vh;
+  width: 10vh;
+  background-image: url(../../icons/HCI.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+header nav {
+  width: 100%;
+  height: 50%;
+}
+header nav section {
+  position: absolute;
+  top: 0px;
+  left: calc(50vw - 110px);
+}
+header nav section#mainNav {
+  top: 25px;
+}
+
+main {
+  width: 90vw;
+  margin: 5vh 5vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+main section.exercise {
+  margin-top: 6vh;
+}
+
+a.top {
+  padding: 7px 9.1px 8px 9.1px;
+  line-height: 16px;
+  background-color: #FCFCFF;
+  border: 1px solid #FCFCFF;
+  border-radius: 50%;
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.5);
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+}
+
+.modal .modalContent {
+  max-height: 80vh;
+  overflow: scroll;
+  width: 96vw;
+  margin: 0px 2vw;
+}
+
+/*# sourceMappingURL=mobile.css.map */

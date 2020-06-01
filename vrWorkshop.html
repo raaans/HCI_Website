@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+
+    <link href="_css/vrWorkshop/query.css" type="text/css" rel="stylesheet" />
+    <link rel="shortcut icon" type='image/x-icon' href="icons/favicon.ico">
+
+
+    <link href="https://fonts.googleapis.com/css?family=Lato|Oswald&display=swap" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="_js/menu.js" defer></script>
+    <script src="_js/modals.js" defer></script>
+
+    <title>HCI VR &amp; AR Workshops</title>
+</head>
+
+<body>
+    <header>
+        <a href="index.html" id="logo"></a>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h1>VR &amp; AR workshops</h1>
+            <p>In these workshops, we learn to use different engines and tools to design and create AR &amp; VR experiences.</p>
+        </section>
+
+        <section class="content">
+            <h2 id="workshop1">Unreal Engine Workshop</h2>
+            <p>In this first workshop, I followed a tutorial from the <a href="https://www.raywenderlich.com/771-unreal-engine-4-tutorial-for-beginners-getting-started" target="_blank">raywenderlich.com website</a>. The tutorial is heavily banana-focused, so don't be surprised to see a lot of those around.</p>
+
+            <section class="exercise">
+                <h3>Meshes &amp; Materials </h3>
+                <p>First, we learned a bit about projects and the interface of the Unreal Editor. That's not too interesting to go into here, so I'll skip towards the first real lesson: meshes and materials. </p>
+
+                <p>A mesh is, simply put, the shape of a... thing. This thing doesn't have a specific colour or texture or anything else. That's it!</p>
+
+                <p>The surface of this 'thing' is made up of it's material properties. The material determines the base colour and how metallic, shiny or rough our thing is. Add in the texture (a simple 2D image that's pasted on top of the mesh), and you have completed your thing!</p>
+
+                <p>I also completed my banana. Should you be interested, you can admire my seated banana here:</p>
+
+                <button class="butt contButt videoButt"><span>Show me a video!</span></button>
+
+                <section class="modal videoModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <video class="videoContainer" controls muted>
+                            <source src="videos/banana1.mp4" type="video/mp4">
+                            <source src="videos/banana1.ogg" type="video/ogg">
+                        </video>
+                    </div>
+                </section>
+
+            </section>
+
+
+
+            <section class="exercise">
+                <h3>Blueprints</h3>
+                <p>A blueprint is something even more abstract than the thing we just did. Whereas a mesh is the shape and a material is the surface of that shape, a blueprint can be best described as a behaviour: Something that a thing does. Or something. Are you still following? Because I barely am.</p>
+
+                <p>In the meshes and materials section I skipped over the use of nodes, so I'll address it here. A node contains the properties of the thing you're making. So your material would have a 'colour' node, a 'specularity' node, etc. Blueprints work similarly, in that they have nodes for every action that happens.</p>
+
+                <p>I spent the rest of this tutorial trying to make a rotating turntable with a banana on it. It kind of worked, but the rotation is the wrong way around because I also rotated my banana before.</p>
+
+                <button class="butt contButt videoButt"><span>Show me a video!</span></button>
+
+                <section class="modal videoModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <video class="videoContainer" controls muted>
+                            <source src="videos/banana2.mp4" type="video/mp4">
+                            <source src="videos/banana2.ogg" type="video/ogg">
+                        </video>
+                    </div>
+                </section>
+
+            </section>
+
+        </section>
+    </main>
+
+    <div>
+        <a href="#logo" class="top">&uArr;</a>
+    </div>
+</body>
+
+</html>
