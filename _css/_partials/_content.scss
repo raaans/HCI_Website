@@ -1,31 +1,45 @@
 section.content {
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     z-index: $z-content;
+    width: 100%;
 
-    section {
+    div.sectionDivider {
+        border-bottom: 1px solid $color-head;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    button#show-contact {
-        padding: 16px 24px;
-        border: 1px solid $color-link;
-        border-radius: 5px;
-        font-family: $font-head;
-        font-weight: 500;
-        color: $color-link;
-        background-color: transparent;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 4px;
+        margin-bottom: 16px;
         cursor: pointer;
-        margin-top: 32px;
+
+        h2 {
+            user-select: none;
+        }
+
+        span {
+            color: $color-head;
+            padding: 6px 4px 4px 4px;
+            margin-right: 8px;
+            transform: rotate(0.5turn);
+            transition: all 400ms;
+            animation: all 400ms;
+            user-select: none;
+        }
     }
 
-    button#show-contact:hover {
-        background-color: $color-link;
-        color: $color-bg;
+    div.upsideDown {
+        span {
+            transform: rotate(0turn);
+            transition: all 400ms;
+            animation: all 400ms;
+        }
+    }
+
+    div.sectionContent {
+        display: none;
+    }
+
+    div.sectionContent.contentVisible {
+        display: block !important;
     }
 }
