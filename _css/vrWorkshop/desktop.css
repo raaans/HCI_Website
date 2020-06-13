@@ -326,6 +326,12 @@ body .contButt span:after {
   top: -2px;
   right: -20px;
 }
+body .butt.external span:after {
+  content: url("../../icons/external.svg");
+  height: 14px;
+  width: 14px;
+  top: 0px;
+}
 
 header {
   display: flex;

@@ -67,3 +67,10 @@
     top: -2px;
     right: -20px;
 }
+
+.butt.external span:after {
+    content: url('../../icons/external.svg');
+    height: 14px;
+    width: 14px;
+    top: 0px;
+}
