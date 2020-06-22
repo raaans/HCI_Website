@@ -85,10 +85,75 @@
                 <h3>My own Critter on Wheels</h3>
                 <p>I started off by using my Arduino kit and some Legos to build a robot that could ride around and would avoid obstacles. My first prototype showed me one problem that I didn't realise before I started building: the servos I had were not continuous servos (meaning they can't continuously rotate). I decided to just keep going to see how far I could get. My second prototype still had some issues, but with a slightly sturdier base, some better fit gears and some WD-40, it worked almost as expected. I just had to revise the code so that both wheels would turn, and it worked!</p>
 
-                <!-- INSERT VIDEO -->
-                <!-- INSERT CODE -->
-
                 <p>Too bad I can't fully articulate the servos, but it works as I had hoped it would. Experiment 1 is a success!</p>
+
+                <button class="butt contButt videoButt"><span>Show me a video!</span></button>
+                <section class="modal videoModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <video class="videoContainer" controls muted loop>
+                            <source src="videos/AC-Exp1.mp4" type="video/mp4">
+                            <source src="videos/AC-Exp1.ogg" type="video/ogg">
+                            <source src="videos/AC-Exp1.webm" type="video/webm">
+                        </video>
+                    </div>
+                </section>
+
+                <button class="butt contButt codeButt"><span>Show me the code!</span></button>
+                <section class="modal codeModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <code>
+                            #include &lt;Servo.h&gt; <br>
+                            <br>
+                            Servo rServo; // Declare servo object for the right servo<br>
+                            Servo lServo; // Declare servo object for the left servo<br>
+                            int servoL = 10; // Var for the pin the left servo connects to<br>
+                            int servoR = 9; // Var for the pin the right servo connects to<br>
+                            int posL = 90; // Var to keep track of the left servo's position, starting halfway<br>
+                            int posR = 90; // Var to keep track of the right servo's position<br>
+                            const int echoPin = 6; // Constant for the echo pin of the distance sensor<br>
+                            const int trigPin = 7; // Constant for the trigger pin of the distance sensor<br>
+                            int sensorValue = 0; // variable for sensor value<br>
+                            <br>
+                            void setup() {<br>
+                            &nbsp;rServo.attach(servoR); // Tell the servo to what pin it's connected to<br>
+                            &nbsp;lServo.attach(servoL); // Tell the servo to what pin it's connected to<br>
+                            &nbsp;pinMode(echoPin, INPUT); // Create input &amp; output pins for the distance sensor<br>
+                            &nbsp;pinMode(trigPin, OUTPUT);<br>
+                            &nbsp;Serial.begin(9600);<br>
+                            }<br>
+                            <br>
+                            void loop() {<br>
+                            &nbsp;// send a pulse<br>
+                            &nbsp;digitalWrite(trigPin, LOW);<br>
+                            &nbsp;delayMicroseconds(2);<br>
+                            &nbsp;digitalWrite(trigPin, HIGH);<br>
+                            &nbsp;delayMicroseconds(5);<br>
+                            &nbsp;digitalWrite(trigPin, LOW);<br>
+                            &nbsp;// wait for the echo<br>
+                            &nbsp;long duration = pulseIn(echoPin, HIGH);<br>
+                            <br>
+                            &nbsp;int cm = duration / 29 / 2;<br>
+                            &nbsp;Serial.print(cm);<br>
+                            &nbsp;Serial.println();<br>
+                            &nbsp;delay(100);<br>
+                            <br>
+                            &nbsp;//if the measured distance is lower than 10 cm, turn the right wheel forward and the left wheel backward<br>
+                            &nbsp;if(cm &lt; 10) { <br>
+                            &nbsp;&nbsp;rServo.write(180); <br>
+                            &nbsp;&nbsp;lServo.write(180); <br>
+                            &nbsp;} <br>
+                            &nbsp;// if not, turn both wheels forward <br>
+                            &nbsp;else { <br>
+                            &nbsp;&nbsp;rServo.write(90); <br>
+                            &nbsp;&nbsp;lServo.write(90); <br>
+                            &nbsp;} <br>
+                            &nbsp;delay(100); <br>
+                            &nbsp;} <br>
+                        </code>
+                    </div>
+                </section>
 
             </div>
 
