@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+
+    <link href="_css/arduino/query.css" type="text/css" rel="stylesheet" />
+    <link rel="shortcut icon" type='image/x-icon' href="icons/favicon.ico">
+
+
+    <link href="https://fonts.googleapis.com/css?family=Lato|Oswald&display=swap" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="_js/accordions.js" defer></script>
+    <script src="_js/modals.js" defer></script>
+
+    <title>HCI VR &amp; AR Challenge</title>
+</head>
+
+<body>
+    <header>
+        <a href="index.html" id="logo"></a>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h1>Wearables Challenge</h1>
+            <p>In this challenge, I'll be researching, designing and building my own wearable. My inspiration for my eventual project came from my own experience. So, when it's warm at night, I usually take a very thin blanket and turn on a fan. Usually that works just fine, but sometimes it gets cold at night and I wake up because I'm too cold. This gave me an idea for a wearable: let's make a wearable that records the temperature of your bed and uses that to change the speed of your fan, so you're always comfy.</p>
+        </section>
+
+        <section class="content">
+
+            <div class="sectionDivider">
+                <h2 id="workshop1">Research</h2>
+                <span>&uArr;</span>
+            </div>
+
+            <div class="sectionContent">
+                <h3>Spire Health Tag</h3>
+                <p>I've lately been doing some research into sleep and how you can sleep enough in terms of quantity (hours) but still get bad sleep. The only way you can really know about this is through sleep tracking. I tried it on my phone, but it didn't really provide me with the results I wanted. That's how I stumbled onto the <a href="https://spirehealth.com/pages/spire-health-tag-main" target="_blank">Spire Health Tag</a>. The tag is a lot more than just a sleep tracker, but that's the main thing I'm interested in for now.</p>
+
+                <p>The Spire Health App promises to give you proper advice on your sleeping habits, in combination with your breathing and heart rate. Other than that it also promises to provide the same for your stress levels, using your other health metrics to tell you how stressed you are and provide you with tips on how to de-stress.</p>
+
+                <h3>SkinTrack - Carnegie Mellon</h3>
+                <p>For something entirely different: I came across <a href="https://www.popsci.com/watch-this-smartwatch-use-your-skin-as-touchpad/" target="_blank">this article on PopSci</a> which talks about tech that can track the position of your finger across your skin. I think it's very interesting, mainly because it can be used in a very broad context. It could be used to much more easily control small screens, as pointed out in the video, but I think it also has potential as a remote-control device for larger screens or VR, in a similar way that magic leap tried to do with their first product.</p>
+
+                <h3>SignAloud - University of Washington</h3>
+                <p><a href="https://www.washington.edu/news/2016/04/12/uw-undergraduate-team-wins-10000-lemelson-mit-student-prize-for-gloves-that-translate-sign-language/" target="_blank">These gloves</a> can translate sign language to "regular" English by analysing your gestures and using a speaker to say the word you just signed. I thought this would be a pretty big deal for deaf people, but <a href="" target="_blank">this critique</a> states that the engineers didn't properly take their end users into account and only partially solved their problem - sign language is much more than gestures, including facial expressions and movements in other parts of the body. </p>
+
+                <p>On one hand, as a designer, I'm very much a fan of involving your users in the design process and improving your products that way. Only thinking about the hand gestures was insulting to the author of the critique, who is deaf herself. I can really see where she's coming from and they definitely should have involved actual deaf people in their process. On the other hand though, I'm left wondering if a partial translation that allows only rudimentary communication between you and someone who doesn't know ASL isn't still better than nothing at all. </p>
+                <br>
+
+            </div>
+
+            <div class="sectionDivider">
+                <h2 id="workshop1">Experiment &amp; Play</h2>
+                <span>&uArr;</span>
+            </div>
+
+            <div class="sectionContent">
+                <h3>Getting a temp</h3>
+                <p>First I needed a way to measure temperature. We already covered this during the <a href="./arduino.html">Arduino workshops</a> with exersize 10, so I dug up what I did back then and calibrated the NTC-resistor. </p>
+
+                <h3>Measuring fan speed</h3>
+                <p>Second, to control a fan you need to measure it's speed. I found a <a href="https://www.instructables.com/id/Reading-DC-Fan-RPM-With-Arduino/" target="_blank">tutorial</a> online, built the circuit from there and ran the code. And it worked flawlessly! I didn't have the proper resistor, so I used the potmeter and measured out the proper resistance with that.</p>
+
+                <h3>Controlling the fan</h3>
+                <p>I built a new circuit, this time focused on changing the PWN frequency of the fan to change it's speed. I found a <a href="https://www.hackster.io/Buechner/4-wired-fan-control-pwm-bb29ac" target="_blank">different piece of code</a> which I used to control the fan speed. </p>
+
+                <h3>Putting it all together</h3>
+                <p>I combined all the code I found and made before into this beautiful piece of kit:</p>
+
+                <button class="butt contButt codeButt"><span>Show me the code!</span></button>
+                <section class="modal codeModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <code>
+                            int pwmPin = 3; // digital PWM pin 9<br>
+                            int pwmVal = 1; // The PWM Value<br>
+                            int sensorPin = A0;<br>
+                            <br>
+                            unsigned long time;<br>
+                            unsigned int rpm;<br>
+                            String stringRPM;<br>
+                            <br>
+                            void setup(){<br>
+                            &nbsp;// generate 25kHz PWM pulse rate on Pin 3<br>
+                            &nbsp;pinMode(pwmPin, OUTPUT); // OCR2B sets duty cycle<br>
+                            &nbsp;// Set up Fast PWM on Pin 3<br>
+                            &nbsp;TCCR2A = 0x23; // COM2B1, WGM21, WGM20<br>
+                            &nbsp;// Set prescaler<br>
+                            &nbsp;TCCR2B = 0x0A; // WGM21, Prescaler = /8<br>
+                            &nbsp;// Set TOP and initialize duty cycle to zero(0)<br>
+                            &nbsp;OCR2A = 79; // TOP DO NOT CHANGE, SETS PWM PULSE RATE<br>
+                            &nbsp;OCR2B = 54; // duty cycle for Pin 3 (0-79) generates 1 500nS pulse even when 0 | minimum is 54 to start fan spin from 0 rpm<br>
+                            &nbsp;digitalWrite(2, HIGH); // Starts reading<br>
+                            &nbsp;pinMode(sensorPin, INPUT);<br>
+                            &nbsp;Serial.begin(9600);<br>
+                            }<br>
+                            <br>
+                            void loop(){<br>
+                            unsigned int x;<br>
+                            &nbsp;int sensorValue=analogRead(sensorPin); // read sensorpin<br>
+                            &nbsp;Serial.println(sensorValue); // print to serial monitor<br>
+                            &nbsp;// calibration: 12C=370, 24C=500<br>
+                            &nbsp;delay(100); // wait<br>
+                            &nbsp;int t=map(sensorValue, 300, 550, 40, 79);<br>
+                            &nbsp;OCR2B=t;<br>
+                            }<br>
+                            <br>
+                            char getRPMS() { <br>
+                            &nbsp;time=pulseIn(2, HIGH); <br>
+                            &nbsp;rpm=(1000000 * 60) / (time * 4); <br>
+                            &nbsp;stringRPM=String(rpm); <br>
+                            <br>
+                            &nbsp;if (stringRPM.length() &lt; 5) { <br>
+                            &nbsp;&nbsp;Serial.println(rpm, DEC); <br>
+                            &nbsp;} <br>
+                            }<br>
+                        </code>
+                    </div>
+                </section>
+
+                <button class="butt contButt videoButt"><span>Show me the video!</span></button>
+
+                <section class="modal videoModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <video class="videoContainer" controls muted>
+                            <source src="videos/hotCold.webm" type="video/webm">
+                        </video>
+                    </div>
+                </section>
+
+            </div>
+
+            <div class="sectionDivider">
+                <h2 id="workshop1">Design &amp; Build</h2>
+                <span>&uArr;</span>
+            </div>
+
+            <div class="sectionContent">
+                <h3>Sketching</h3>
+                <p>I made a few sketches to more accurately depict how the product should work:</p>
+                <img src="images/wearableSketch.png" alt="My sketches for the wearable, including a temperature-sensing waistband and a device to control fan speed, controlled via bluetooth" />
+                <p>I first thought I'd use a wristband to sense the temperature, but that wouldn't make much sense. Your wrist is far away from your body, and not under the covers when you're warm. I decided to move to a waistband instead, to more accurately measure the temperature you're actually feeling. This does make it very important to make the band as thin and soft as possible, so that you're not uncomfortably laying on some hard piece of tech. </p>
+                <p>I also sketched the fan control piece, which can operate via Pulse-Width Modulation (PWM). This ensures a smooth ramping up and down of the fan. It works via bluetooth, so that you don't have any wires dangling off your body at night. An Arduino controls the fan in the same way I demonstrated in the experiment &amp; play section, though ideally with a larger and quieter fan. </p>
+
+            </div>
+
+            <div class="sectionDivider">
+                <h2 id="workshop1">Reflect</h2>
+                <span>&uArr;</span>
+            </div>
+
+            <div class="sectionContent">
+                <p>I really like how this project turned out, because it's actually solving a problem I personally have. The only thing that I don't really like is the fact that I can't actually build it right now, because I don't have a bluetooth radio nor the knowledge on how to use that to transmit data. I also feel like the different stages of the HCI setup got slightly mixed up, but I think that's all right.</p>
+            </div>
+
+        </section>
+    </main>
+
+    <div>
+        <a href="#logo" class="top">&uArr;</a>
+    </div>
+</body>
+
+</html>

@@ -37,9 +37,14 @@ section.content {
 
     div.sectionContent {
         display: none;
+        margin: 0px 8px 24px 4px;
     }
 
     div.sectionContent.contentVisible {
         display: block !important;
+    }
+
+    img {
+        margin: 8px 0px;
     }
 }

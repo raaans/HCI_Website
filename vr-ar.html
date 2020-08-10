@@ -103,17 +103,46 @@
             </div>
 
             <div class="sectionContent">
-                <h3>Blender</h3>
-                <p>A friend of mine was heavily advocating the use of Blender stuff, saying that it’s so much better and easier to use than Unreal. I didn’t particularly like Unreal myself, so I thought it would be a good point to start off.</p>
 
-                <p>I first watched <a href="https://www.youtube.com/playlist?list=PLa1F2ddGya_-UvuAqHAksYnB0qL9yWDO6" target="_blank">a number of videos about the basics of Blender</a>, and things clicked a lot faster than they did with Unreal, though that could also be attributed to the fact that this intro was a lot clearer.</p>
+                <h3>Back to the Drawing Board</h3>
+                <p>So, I did exersizes for Unreal, which I didn't like at all. Then I used Blender, which I liked, but wasn't functional for VR. Then I started playing with Unity. First I followed <a href="https://www.youtube.com/watch?v=VftuuaxIPIU" target="_blank">this tutorial</a> for setting up ARCore. After about 2 hours of ...ing around and it crashing on me, I gave up and went to AR Foundation in Unity. I followed <a href="https://www.youtube.com/playlist?list=PL6VJLOFcTt7awvyIGIbLLPOBrW6-Y1R-J" target="_blank">this tutorial</a>, which worked a lot better and actually yielded me some results:</p>
 
-                <p>The sculpting workspace spoke to me, so that's where I started experimenting. I grabbed my Wacom, sat myself down comfortably, and just kinda let myself go. I have no idea what it is, but this is what came out:</p>
+                <img src="./images/arvrTest1.jpeg" alt="Screenshot of my first AR test" style="max-width: 50%;" />
 
-                <img src="images/sculpt1.png" alt="Screenshot of my first sculpt in Blender" />
+                <p>I followed some of the videos from the playlist and got to coding something that actually properly tracks stuff. Lo and behold, I got more errors that I was unable to fix after 4 more hours of fucking around. After following <i><a href="" target="_blank">yet another tutorial</a></i> I finally got something working:</p>
 
+                <img src="./images/arvrTest2.jpeg" alt="Screenshot of my second AR test" />
 
+                <p>It's my very own unity app that detects horizontal surfaces. Pretty cool!</p>
 
+                <h3>Unity Gameplay</h3>
+                <p>After some talks with my friends over Skype / Discord we concluded that meeting eachother in-person was a lot more fun and a lot more practical. Not only because actually seeing eachother is better than seeing eachother on a screen, but also because you can have multiple conversations going at once. This gave me an idea: why not use some simple VR to replace video-conferencing so that you can easily break off into a separate conversation with a part of your group?</p>
+
+                <p>To start, I followed <a href="https://www.youtube.com/watch?v=j48LtUkZRjU&list=PLPV2KyIb3jR5QFsefuO2RlAgWEz6EvVi6" target="_blank">this series of tutorial videos</a> on how to make some stuff in Unity work and program functions in C#. I built a small "game" with controls and physics. Long story short: here are the results:</p>
+
+                <button class="butt contButt videoButt"><span>Show me the video!</span></button>
+
+                <section class="modal videoModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <video class="videoContainer" controls muted>
+                            <source src="videos/UnityExp1.webm" type="video/webm">
+                        </video>
+                    </div>
+                </section>
+
+                <p>Doing some more research on positional audio brought me to <a href="https://www.youtube.com/watch?v=p96RDBlNZRM" target="_blank">this tutorial</a>. The positional audio was surprisingly easy to figure out, after a few tries.</p>
+
+                <button class="butt contButt videoButt"><span>Show me the video!</span></button>
+
+                <section class="modal videoModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <video class="videoContainer" controls muted>
+                            <source src="videos/UnityExp2.webm" type="video/webm">
+                        </video>
+                    </div>
+                </section>
             </div>
 
             <div class="sectionDivider">
@@ -122,7 +151,7 @@
             </div>
 
             <div class="sectionContent">
-                <p>Inspiration is an important part of the design process, so first I set out to find interesting projects in the VR/AR space.</p>
+                <p>To actually make it look like something people would want to use, I looked around on the web for more tutorials on rigging and humanoid player characters. I also designed the environment so that there are different locations for you to have a meeting in and I made sure that the player character actually outputs sound from the players microphone. </p>
             </div>
 
             <div class="sectionDivider">

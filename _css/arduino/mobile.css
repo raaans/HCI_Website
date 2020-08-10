@@ -104,7 +104,7 @@ body button {
   border-bottom: 1px solid transparent;
 }
 body header {
-  z-index: 3;
+  z-index: 2;
 }
 body header #logo:hover {
   border-bottom: 1px solid transparent;
@@ -164,9 +164,13 @@ body section.content div.upsideDown span {
 }
 body section.content div.sectionContent {
   display: none;
+  margin: 0px 8px 24px 4px;
 }
 body section.content div.sectionContent.contentVisible {
   display: block !important;
+}
+body section.content img {
+  margin: 8px 0px;
 }
 body .modal {
   position: fixed;
@@ -177,7 +181,7 @@ body .modal {
   height: 100%;
   min-height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
-  z-index: 4;
+  z-index: 5;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -189,14 +193,15 @@ body .modal {
 body .modal .modalContent {
   background-color: #FCFCFF;
   box-shadow: 2px 2px 8px 2px #16161d;
-  border: 1px solid #FCFCFF;
+  border: 0px solid transparent;
   border-radius: 8px;
-  z-index: 5;
+  z-index: 6;
+  overflow: hidden;
 }
 body .modal .modalContent video {
   max-width: 100%;
-  border: 0px solid #FCFCFF;
-  border-radius: 8px;
+  border: 0px solid transparent;
+  border-radius: 10px;
   z-index: z-modal;
 }
 body .modal .modalContent span.modalClose {
@@ -211,7 +216,7 @@ body .modal .modalContent span.modalClose {
   color: #16161d;
   cursor: pointer;
   user-select: none;
-  z-index: 6;
+  z-index: 7;
 }
 body .modal .modalContent span.modalClose:hover {
   color: #d2b856;
@@ -236,7 +241,7 @@ body footer {
   border-top: 1px solid #090B0C;
   width: 80vw;
   padding: 24px 0px;
-  z-index: 3;
+  z-index: 2;
 }
 body footer div#footer-content {
   display: flex;

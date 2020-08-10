@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+
+    <link href="_css/arduino/query.css" type="text/css" rel="stylesheet" />
+    <link rel="shortcut icon" type='image/x-icon' href="icons/favicon.ico">
+
+
+    <link href="https://fonts.googleapis.com/css?family=Lato|Oswald&display=swap" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="_js/accordions.js" defer></script>
+    <script src="_js/modals.js" defer></script>
+
+    <title>HCI Computervision &amp; Processing Workshops</title>
+</head>
+
+<body>
+    <header>
+        <a href="index.html" id="logo"></a>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h1>Computervision &amp; Processing</h1>
+            <p>In this workshop I worked in the Processing tool to play around with more advanced coding skills, like computer vision. Under every assignment you'll find my own result for that exercise. </p>
+        </section>
+
+        <section class="content">
+
+            <div class="sectionDivider">
+                <h2 id="workshop1">Assignment 2F: Your First Program</h2>
+                <span>&uArr;</span>
+            </div>
+
+            <div class="sectionContent">
+                <img src="./images/prog2F.png" alt="My code & result for assignment 2F" />
+            </div>
+
+            <div class="sectionDivider">
+                <h2 id="workshop1">Assignment 2I: Your Second Program</h2>
+                <span>&uArr;</span>
+            </div>
+
+            <div class="sectionContent">
+                <img src="./images/prog2I.png" alt="My code & result for assignment 2I" />
+            </div>
+
+            <div class="sectionDivider">
+                <h2 id="workshop1">Assignment 2O: Interactive Shapes</h2>
+                <span>&uArr;</span>
+            </div>
+
+            <div class="sectionContent">
+                <img src="./images/prog2O.png" alt="My code & result for assignment 2O" />
+            </div>
+
+            <div class="sectionDivider">
+                <h2 id="workshop1">Assignment 3B: Criminal Intent</h2>
+                <span>&uArr;</span>
+            </div>
+
+            <div class="sectionContent">
+                <img src="./images/prog3B.png" alt="My code & result for assignment 3B" />
+            </div>
+
+            <div class="sectionDivider">
+                <h2 id="workshop1">Assignment 3D: Top Hats</h2>
+                <span>&uArr;</span>
+            </div>
+
+            <div class="sectionContent">
+                <img src="./images/prog3D.png" alt="My code & result for assignment 3D" />
+            </div>
+
+            <div class="sectionDivider">
+                <h2 id="workshop1">Assignment 4B: Processing to Arduino</h2>
+                <span>&uArr;</span>
+            </div>
+
+            <div class="sectionContent">
+                <p>I think a description would work better here to describe what I did, and add the code for both processing and arduino separately.</p>
+                <p>I wanted to make an automatic door opener; if processing recognises a face, it sends the proper command to the servo, which turns to open a door (hypothetically). If processing no longer recognises a face, it closes the hypothetical door (after 5 seconds).</p>
+
+                <button class="butt contButt codeButt"><span>Arduino code!</span></button>
+                <section class="modal codeModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <code>
+                            #include &lt;Servo.h&gt;<br>
+                            <br>
+                            // Read data from the serial and turn ON or OFF a light depending on the<br>
+                            char val; // Data received from the serial port<br>
+                            int ledPin = 13; // Set the pin to digital I/O 4<br>
+                            <br>
+                            Servo rServo; // Declare servo object for the right servo<br>
+                            int servoR = 9; // Var for the pin the right servo connects to<br>
+                            int posR = 90; // Var to keep track of the right servo's position<br>
+                            rServo.attach(servoR); // Tell the servo to what pin it's connected to<br>
+                            <br>
+                            void setup() {<br>
+                            &nbsp;pinMode(ledPin, OUTPUT); // Set pin as OUTPUT<br>
+                            &nbsp;Serial.begin(9600); // Start serial communication at 9600 bps<br>
+                            }<br>
+                            <br>
+                            void loop() {<br>
+                            &nbsp;while (Serial.available()) { // If data is available to read,<br>
+                            &nbsp;&nbsp;val = Serial.read(); // read it and store it in val<br>
+                            &nbsp;}<br>
+                            <br>
+                            &nbsp;if (val == 'f') { // If f was received<br>
+                            &nbsp;&nbsp;rServo.write(180); // turn the servo<br>
+                            &nbsp;} else {<br>
+                            &nbsp;&nbsp;rServo.write(90); // turn the servo back to its original position<br>
+                            &nbsp;}<br>
+                            <br>
+                            &nbsp;delay(5000); // Wait 5000 milliseconds for next reading<br>
+                            }<br>
+                        </code>
+                    </div>
+                </section>
+
+                <button class="butt contButt codeButt"><span>Processing code!</span></button>
+                <section class="modal codeModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <code>
+                            Serial myPort; // Create object from Serial class <br>
+                            int val; // Data received from the serial port <br>
+                            <br>
+                            OpenCV opencv; <br>
+                            Rectangle[] faces; <br>
+                            <br>
+                            void setup() { <br>
+                            &nbsp;opencv = new OpenCV(this, "test.jpg"); <br>
+                            &nbsp;size(1080, 720); <br>
+                            <br>
+                            &nbsp;opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE); <br>
+                            &nbsp;faces = opencv.detect(); <br>
+                            &nbsp;String portName = Serial.list()[0]; //adjust 0 to the port your Arduino is connected to <br>
+                            &nbsp;myPort = new Serial(this, portName, 9600); <br>
+                            } <br>
+                            <br>
+                            void draw() { <br>
+                            &nbsp;image(opencv.getInput(), 0, 0); <br>
+                            <br>
+                            &nbsp;noFill(); <br>
+                            &nbsp;stroke(0, 255, 0); <br>
+                            &nbsp;strokeWeight(3); <br>
+                            &nbsp;for (int i = 0; i &lt; faces.length; i++) { <br>
+                            &nbsp;&nbsp;rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height); <br>
+                            &nbsp;&nbsp;if (faces.length> 0) { <br>
+                            &nbsp;&nbsp;&nbsp;myPort.write('f'); <br>
+                            &nbsp;&nbsp;} else { <br>
+                            &nbsp;&nbsp;&nbsp;myPort.write('n'); <br>
+                            &nbsp;&nbsp;} <br>
+                            &nbsp;} <br>
+                            } <br>
+                        </code>
+                    </div>
+                </section>
+            </div>
+
+        </section>
+    </main>
+
+    <div>
+        <a href="#logo" class="top">&uArr;</a>
+    </div>
+</body>
+
+</html>

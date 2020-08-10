@@ -20,14 +20,15 @@
     .modalContent {
         background-color: $color-bg;
         box-shadow: 2px 2px 8px 2px $color-copy;
-        border: 1px solid $color-bg;
+        border: 0px solid transparent;
         border-radius: 8px;
         z-index: $z-modal;
+        overflow: hidden;
 
         video {
             max-width: 100%;
-            border: 0px solid $color-bg;
-            border-radius: 8px;
+            border: 0px solid transparent;
+            border-radius: 10px;
             z-index: z-modal;
         }
 
