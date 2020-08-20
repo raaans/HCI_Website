@@ -196,7 +196,8 @@ body .modal .modalContent {
   border: 0px solid transparent;
   border-radius: 8px;
   z-index: 6;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 body .modal .modalContent video {
   max-width: 100%;

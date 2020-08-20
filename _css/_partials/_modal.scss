@@ -23,7 +23,8 @@
         border: 0px solid transparent;
         border-radius: 8px;
         z-index: $z-modal;
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: scroll;
 
         video {
             max-width: 100%;
