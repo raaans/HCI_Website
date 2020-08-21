@@ -41,7 +41,7 @@
                 <p>First, I started looking into what other people had already designed. I came across one project that immediately grabbed my attention, if not just for the lack of detail and concrete description of what it was supposed to do.</p>
                 <h3>The intimate bench</h3>
                 <p>I came across <a href="https://www.cs.huji.ac.il/~amnoid/humobile/media/playful_interactivity.pdf" target="_blank">this research paper</a> on playful interaction. I really liked the intimate bench prototype they made. It's a bench with sensors and lights that are supposed to make people sit closer together. The paper doesn't really go into how it's supposed to do that, only that the shapes and lights "act in ways that strenghten the situation". </p>
-                
+
                 <p>I really do like the concept, and the lack of in-depth description of how it's supposed to work got my brain going. How can I make a better and more elaborate version of this?</p>
             </div>
 
@@ -51,14 +51,186 @@
             </div>
 
             <div class="sectionContent">
-                
+
                 <h3>Benchmark</h3>
                 <p>I first sketched out my idea, to give it a bit of shape:</p>
                 <img src="images/bench.png" alt="The sketch I made of my interactive bench, showing a scoreboard for each seat, seat detectors and arrows pointing to the seat with the least amound of points" />
-                
-                <p>First I went to work on the LED lights. I went back to what I made in <a href="arduino.html">exercise 7C</a> earlier. I don't have three big LED boards, but I do have one LED matrix, so that will do for this proof of concept.</p>
-                
-                
+
+                <p>First I went to work on the LED lights. I went back to what I made in <a href="arduino.html">exercise 7C</a> earlier. I don't have three big LED boards, but I do have one LED matrix, so that will do for this proof of concept. I changed the code to increase the number with the push of a button instead of by turning the potmeter, as a substitute for the 'seating detectors'. </p>
+
+                <button class="butt contButt codeButt"><span>Show me the code!</span></button>
+                <section class="modal codeModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <code>
+
+                            #include "LedControl.h" <br>
+                            <br>
+                            LedControl lc = LedControl(12,11,10,1); <br>
+                            <br>
+                            const int seatPin = 3; <br>
+                            int sitCounter = 0; // counter for the number of button presses / times seated <br>
+                            int seatState = 0; // current state of the seat (button) <br>
+                            int lastseatState = 0; // previous state of the seat (button) <br>
+                            <br>
+                            void setup() { <br>
+                            lc.shutdown(0,false); <br>
+                            lc.setIntensity(0,9); <br>
+                            lc.clearDisplay(0); <br>
+                            Serial.begin(9600); <br>
+                            // initialize the button pin as an input: <br>
+                            pinMode(seatPin, INPUT); <br>
+                            } <br>
+                            <br>
+                            void loop(){ <br>
+                            <br>
+                            // read the pushbutton input pin: <br>
+                            seatState = digitalRead(seatPin); <br>
+                            <br>
+                            // compare the seatState to its previous state <br>
+                            if (seatState != lastseatState) { <br>
+                            // if the state has changed, increment the counter <br>
+                            if (seatState == HIGH) { <br>
+                            // if the current state is HIGH then the button went from off to on: <br>
+                            sitCounter++; <br>
+                            Serial.print("amount of sits: "); <br>
+                            Serial.println(sitCounter); <br>
+                            } else { <br>
+                            // if the current state is LOW then the button went from on to off: <br>
+                            } <br>
+                            // Delay a little bit to avoid bouncing <br>
+                            delay(50); <br>
+                            } <br>
+                            // save the current state as the last state, for next time through the loop <br>
+                            lastseatState = seatState; <br>
+                            <br>
+                            &nbsp;if (sitCounter == 0) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00101100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00110100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            <br>
+                            &nbsp;else if (sitCounter == 1) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00001000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00101000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00001000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00001000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00001000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sitCounter == 2) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00000100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00111100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sitCounter == 3) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00001000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00000100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sitCounter == 4) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00001100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00010100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00111100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00000100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00000100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sitCounter == 5) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00111100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00100000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00111000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00000100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sitCounter == 6) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00100000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00111000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sitCounter == 7) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00111000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00000100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00001000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00010000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00100000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sitCounter == 8) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sitCounter == 9) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00011100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00000100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sitCounter == 10) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00100110); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B01101001); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B10101011); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00101101); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00101001); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00100110); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;&nbsp;<br>
+                            &nbsp;else { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;delay(10); <br>
+                            } <br>
+                        </code>
+                    </div>
+                </section>
 
                 <button class="butt contButt videoButt"><span>Show me the video!</span></button>
 
@@ -66,7 +238,7 @@
                     <div class="modalContent">
                         <span class="modalClose">&times;</span>
                         <video class="videoContainer" controls muted>
-                            <source src="videos/UnityExp1.webm" type="video/webm">
+                            <source src="videos/interfaceExp1.webm" type="video/webm">
                         </video>
                     </div>
                 </section>
