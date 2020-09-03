@@ -56,7 +56,7 @@
                 <p>I first sketched out my idea, to give it a bit of shape:</p>
                 <img src="images/bench.png" alt="The sketch I made of my interactive bench, showing a scoreboard for each seat, seat detectors and arrows pointing to the seat with the least amound of points" />
 
-                <p>First I went to work on the LED lights. I went back to what I made in <a href="arduino.html">exercise 7C</a> earlier. I don't have three big LED boards, but I do have one LED matrix, so that will do for this proof of concept. I changed the code to increase the number with the push of a button instead of by turning the potmeter, as a substitute for the 'seating detectors'. </p>
+                <p>I went back to what I made in <a href="arduino.html">exercise 7C</a> earlier. I don't have three big LED boards, but I do have one LED matrix, so that will do for this proof of concept. I changed the code to increase the number with the push of a button instead of by turning the potmeter, as a substitute for the 'seating detectors'. </p>
 
                 <button class="butt contButt codeButt"><span>Show me the code!</span></button>
                 <section class="modal codeModal">
@@ -243,6 +243,198 @@
                     </div>
                 </section>
 
+                <h3>Detectors</h3>
+                <p>Next up, I needed something better to detect if someone sits down than a button. The light-sensitive resistors we used before seemed like a good substitute; if someone sits down, there's not going to be a lot of light on the bench. I re-did my circuit and updated the code to replace the button with the sensor and then came to the conclusion that it gets dark at night, which would lead to very high scores.</p>
+
+                <p>The distance sensor also wouldn't work; it is a bench after all, and people need something to sit on. The best solution seemed to be to use the capacitive touch circuit we built in the last exersize. I re-built that circuit, but a big sheet of aluminium foil in a pillow, and see if I could manage to get a change in the output when I sat on it. Luckily, even through the pillowcase and my pants it detected enough of a change to be usable. </p>
+
+                <p>All that was left to do, for now, was to change the code I made for the button circuit to accept capacitive touch instead of the button. A simple combining of the code from exersize 15a with an if/else statement later, I was ready to move on.</p>
+
+                <button class="butt contButt codeButt"><span>Show me the code!</span></button>
+                <section class="modal codeModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <code>
+
+                            #include "LedControl.h" <br>
+                            <br>
+                            LedControl lc = LedControl(12,11,10,1); <br>
+                            <br>
+                            const int seatPin = 3; <br>
+                            int sitCounter = 0; // counter for the number of button presses / times seated <br>
+                            int seatState = 0; // current state of the seat (button) <br>
+                            int lastseatState = 0; // previous state of the seat (button) <br>
+                            <br>
+                            #include &lt;CapacitiveSensor.h&gt;<br>
+                            CapacitiveSensor touchSwitch = CapacitiveSensor(4, 2);<br>
+                            <br>
+                            void setup() { <br>
+                            &nbsp;lc.shutdown(0,false); <br>
+                            &nbsp;lc.setIntensity(0,9); <br>
+                            &nbsp;lc.clearDisplay(0); <br>
+                            &nbsp;Serial.begin(9600); <br>
+                            &nbsp;// initialize the button pin as an input: <br>
+                            &nbsp;pinMode(seatPin, INPUT); <br>
+                            } <br>
+                            <br>
+                            void loop(){ <br>
+                            <br>
+                            &nbsp;// read the pushbutton input pin: <br>
+                            &nbsp;long val = touchSwitch.capacitiveSensor(100);<br>
+                            <br>
+                            &nbsp;if (val > 100) {<br>
+                            &nbsp;&nbsp;seatState = 1;<br>
+                            &nbsp;} else {<br>
+                            &nbsp;&nbsp;seatState = 0;<br>
+                            &nbsp;} <br>
+                            &nbsp;// compare the seatState to its previous state <br>
+                            &nbsp;if (seatState != lastseatState) { <br>
+                            &nbsp;&nbsp;// if the state has changed, increment the counter <br>
+                            &nbsp;&nbsp;if (seatState == HIGH) { <br>
+                            &nbsp;&nbsp;&nbsp;// if the current state is HIGH then the button went from off to on: <br>
+                            &nbsp;&nbsp;&nbsp;sitCounter++; <br>
+                            &nbsp;&nbsp;&nbsp;Serial.print("amount of sits: "); <br>
+                            &nbsp;&nbsp;&nbsp;Serial.println(sitCounter); <br>
+                            &nbsp;&nbsp;} else { <br>
+                            &nbsp;&nbsp;&nbsp;// if the current state is LOW then the button went from on to off: <br>
+                            &nbsp;&nbsp;} <br>
+                            &nbsp;&nbsp;// Delay a little bit to avoid bouncing <br>
+                            &nbsp;&nbsp;delay(50); <br>
+                            &nbsp;} <br>
+                            &nbsp;// save the current state as the last state, for next time through the loop <br>
+                            &nbsp;lastseatState = seatState; <br>
+                            <br>
+                            &nbsp;if (sitCounter == 0) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00101100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00110100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            <br>
+                            &nbsp;else if (sitCounter == 1) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00001000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00101000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00001000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00001000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00001000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sitCounter == 2) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00000100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00111100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sitCounter == 3) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00001000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00000100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sitCounter == 4) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00001100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00010100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00111100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00000100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00000100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sitCounter == 5) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00111100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00100000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00111000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00000100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sitCounter == 6) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00100000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00111000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sitCounter == 7) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00111000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00000100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00001000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00010000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00100000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sitCounter == 8) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sitCounter == 9) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00011100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00000100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00100100); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00011000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;else if (sitCounter == 10) { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00100110); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B01101001); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B10101011); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00101101); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00101001); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00100110); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;&nbsp;<br>
+                            &nbsp;else { <br>
+                            &nbsp;&nbsp;lc.setRow(0,0,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,1,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,2,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,3,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,4,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,5,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,6,B00000000); <br>
+                            &nbsp;&nbsp;lc.setRow(0,7,B00000000); <br>
+                            &nbsp;} <br>
+                            &nbsp;delay(10); <br>
+                            } <br>
+                        </code>
+                    </div>
+                </section>
+                
+                <h3>Keeping score</h3>
+                <p>I can't fully build my prototype, because I simply don't have the parts. But I can at least write the code that would make it work! Seeing as this is a bit more complicated, I started with writing some pseudo-code. </p>
+
             </div>
 
             <div class="sectionDivider">
@@ -257,9 +449,6 @@
         </section>
     </main>
 
-    <div>
-        <a href="#logo" class="top">&uArr;</a>
-    </div>
 </body>
 
 </html>
