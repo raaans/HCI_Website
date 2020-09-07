@@ -289,14 +289,14 @@
                             &nbsp;} <br>
                             &nbsp;// compare the seatState to its previous state <br>
                             &nbsp;if (seatState != lastseatState) { <br>
-                            &nbsp;&nbsp;// if the state has changed, increment the counter <br>
+                            &nbsp;&nbsp;// if the state has changed... <br>
                             &nbsp;&nbsp;if (seatState == HIGH) { <br>
-                            &nbsp;&nbsp;&nbsp;// if the current state is HIGH then the button went from off to on: <br>
+                            &nbsp;&nbsp;&nbsp;// and the current state is high, then someone 'sat down', so increment the counter <br>
                             &nbsp;&nbsp;&nbsp;sitCounter++; <br>
                             &nbsp;&nbsp;&nbsp;Serial.print("amount of sits: "); <br>
                             &nbsp;&nbsp;&nbsp;Serial.println(sitCounter); <br>
                             &nbsp;&nbsp;} else { <br>
-                            &nbsp;&nbsp;&nbsp;// if the current state is LOW then the button went from on to off: <br>
+                            &nbsp;&nbsp;&nbsp;// if the current state is LOW then someone stood up, so don't do anything <br>
                             &nbsp;&nbsp;} <br>
                             &nbsp;&nbsp;// Delay a little bit to avoid bouncing <br>
                             &nbsp;&nbsp;delay(50); <br>
@@ -431,9 +431,193 @@
                         </code>
                     </div>
                 </section>
-                
+
                 <h3>Keeping score</h3>
                 <p>I can't fully build my prototype, because I simply don't have the parts. But I can at least write the code that would make it work! Seeing as this is a bit more complicated, I started with writing some pseudo-code. </p>
+
+                <button class="butt contButt codeButt"><span>Show me the code!</span></button>
+                <section class="modal codeModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <code>
+                            Sensors:
+                            &nbsp;seatA
+                            &nbsp;seatB
+                            &nbsp;seatC
+
+                            Leds:
+                            &nbsp;arrowA
+                            &nbsp;arrowB
+                            &nbsp;arrowC
+
+                            Trackers:
+                            &nbsp;scoreA
+                            &nbsp;scoreB
+                            &nbsp;scoreC
+
+                            displays:
+                            &nbsp;dispA
+                            &nbsp;dispB
+                            &nbsp;dispC
+
+                            seatA activates (when someone sits on seatA) {
+                            &nbsp;+1 to scoreA
+                            &nbsp;update dispA to show scoreA
+                            }
+
+                            seatB activates (when someone sits on seatB) {
+                            &nbsp;+1 to scoreB
+                            &nbsp;update dispB to show scoreB
+                            }
+
+                            seatC activates (when someone sits on seatC) {
+                            &nbsp;+1 to scoreC
+                            &nbsp;update dispC to show scoreC
+                            }
+
+                            when scoreA is the lowest score {
+                            &nbsp;light up arrowA
+                            }
+
+                            when scoreB is the lowest score {
+                            &nbsp;light up arrowB
+                            }
+
+                            when scoreC is the lowest score {
+                            &nbsp;light up arrowC
+                            }
+
+                        </code>
+                    </div>
+                </section>
+
+                <p>With things more clear, I rebuilt the circuit with three sensors, added an LED for each seat and re-wrote the script so that each seat had its own counter and the LED for the seat with the lowest amount of sits would light up. I left out the part for the LED matrix, as I only have one and it would massively clutter up the code.</p>
+
+                <button class="butt contButt codeButt"><span>Show me the code!</span></button>
+                <section class="modal codeModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <code>
+                            #include "LedControl.h"<br>
+                            <br>
+                            LedControl lc = LedControl(12,11,10,1);<br>
+                            <br>
+                            int sitCounterA = 0; // counter for seat A<br>
+                            int seatAState = 0; // current state of seat A<br>
+                            int lastseatAState = 0; // previous state of seat A<br>
+                            <br>
+                            int sitCounterB = 0; // counter for seat B<br>
+                            int seatBState = 0; // current state of seat B<br>
+                            int lastseatBState = 0; // previous state of seat B<br>
+                            <br>
+                            int sitCounterC = 0; // counter for seat C<br>
+                            int seatCState = 0; // current state of seat C<br>
+                            int lastseatCState = 0; // previous state of seat C<br>
+                            <br>
+                            #include &lt;CapacitiveSensor.h&gt;<br>
+                            //sensor pin 2 for Seat A<br>
+                            CapacitiveSensor seatA = CapacitiveSensor(3, 2);<br>
+                            <br>
+                            //sensor pin 4 for Seat B<br>
+                            CapacitiveSensor seatB = CapacitiveSensor(5, 4);<br>
+                            <br>
+                            //sensor pin 6 for Seat C<br>
+                            CapacitiveSensor seatC = CapacitiveSensor(7, 6);<br>
+                            <br>
+                            void setup() {<br>
+                            &nbsp;lc.shutdown(0,false);<br>
+                            &nbsp;lc.setIntensity(0,9);<br>
+                            &nbsp;lc.clearDisplay(0);<br>
+                            &nbsp;Serial.begin(9600);<br>
+                            &nbsp;// initialize the button pin as an input:<br>
+                            }<br>
+                            <br>
+                            void loop(){<br>
+                            <br>
+                            &nbsp;// read the capacitive sensor input pin for seatA:<br>
+                            &nbsp;long valA = seatA.capacitiveSensor(100);<br>
+                            &nbsp;//if value A is high enough, save seatstate as 'on' for later use
+                            &nbsp;if (valA > 200) {<br>
+                            &nbsp;&nbsp;seatAState = 1;<br>
+                            &nbsp;} else {<br>
+                            &nbsp;&nbsp;seatAState = 0;<br>
+                            &nbsp;}<br>
+                            <br>
+                            &nbsp;// compare the seatAState to its previous state<br>
+                            &nbsp;if (seatAState != lastseatAState) {<br>
+                            &nbsp;&nbsp;// if the state has changed, check if it was from off to on<br>
+                            &nbsp;&nbsp;if (seatAState == 1) {<br>
+                            &nbsp;&nbsp;&nbsp;// if the current state is on then someone sat on seat A, so increment counter<br>
+                            &nbsp;&nbsp;&nbsp;sitCounterA++;<br>
+                            &nbsp;&nbsp;&nbsp;Serial.print("amount of sits on A: ");<br>
+                            &nbsp;&nbsp;&nbsp;Serial.println(sitCounterA);<br>
+                            &nbsp;&nbsp;} else {<br>
+                            &nbsp;&nbsp;&nbsp;// if the current state is off, then someone sat up, so don't increment the counter
+                            &nbsp;&nbsp;}<br>
+                            &nbsp;&nbsp;// Delay a little bit to avoid bouncing<br>
+                            &nbsp;&nbsp;delay(200);<br>
+                            &nbsp;}<br>
+                            &nbsp;// save the current state as the last state, for next time through the loop<br>
+                            &nbsp;lastseatAState = seatAState;<br>
+                            <br>
+                            &nbsp;long valB = seatB.capacitiveSensor(100);<br>
+                            &nbsp;if (valB > 200) {<br>
+                            &nbsp;&nbsp;seatBState = 1;<br>
+                            &nbsp;} else {<br>
+                            &nbsp;&nbsp;seatBState = 0;<br>
+                            &nbsp;}<br>
+                            <br>
+                            &nbsp;if (seatBState != lastseatBState) {<br>
+                            &nbsp;&nbsp;if (seatBState == 1) {<br>
+                            &nbsp;&nbsp;&nbsp;sitCounterB++;<br>
+                            &nbsp;&nbsp;&nbsp;Serial.print("amount of sits on B: ");<br>
+                            &nbsp;&nbsp;&nbsp;Serial.println(sitCounterB);<br>
+                            &nbsp;&nbsp;} else {<br>
+                            &nbsp;&nbsp;}<br>
+                            &nbsp;&nbsp;delay(200);<br>
+                            &nbsp;}<br>
+                            &nbsp;lastseatBState = seatBState;<br>
+                            <br>
+                            &nbsp;long valC = seatC.capacitiveSensor(100);<br>
+                            &nbsp;if (valC > 200) {<br>
+                            &nbsp;&nbsp;seatCState = 1;<br>
+                            &nbsp;} else {<br>
+                            &nbsp;&nbsp;seatCState = 0;<br>
+                            &nbsp;}<br>
+                            <br>
+                            &nbsp;if (seatCState != lastseatCState) {<br>
+                            &nbsp;&nbsp;if (seatCState == 1) {<br>
+                            &nbsp;&nbsp;&nbsp;sitCounterC++;<br>
+                            &nbsp;&nbsp;&nbsp;Serial.print("amount of sits on C: ");<br>
+                            &nbsp;&nbsp;&nbsp;Serial.println(sitCounterC);<br>
+                            &nbsp;&nbsp;} else {<br>
+                            &nbsp;&nbsp;}<br>
+                            &nbsp;&nbsp;delay(200);<br>
+                            &nbsp;}<br>
+                            &nbsp;lastseatCState = seatCState;<br>
+                            <br>
+                            &nbsp;if (sitCounterA &lt; sitCounterB &amp;&amp; sitCounterA &lt; sitCounterC) {<br>
+                            &nbsp;&nbsp;digitalWrite(ledA, HIGH);<br>
+                            &nbsp;&nbsp;digitalWrite(ledB, LOW);<br>
+                            &nbsp;&nbsp;digitalWrite(ledC, LOW);<br>
+                            &nbsp;} else if (sitCounterB &lt; sitCounterA &amp;&amp; sitCounterB &lt; sitCounterC) {<br>
+                            &nbsp;&nbsp;digitalWrite(ledA, LOW);<br>
+                            &nbsp;&nbsp;digitalWrite(ledB, HIGH);<br>
+                            &nbsp;&nbsp;digitalWrite(ledC, LOW);<br>
+                            &nbsp;} else if (sitCounterC &lt; sitCounterA &amp;&amp; sitCounterC &lt; sitCounterB) {<br>
+                            &nbsp;&nbsp;digitalWrite(ledA, LOW);<br>
+                            &nbsp;&nbsp;digitalWrite(ledB, LOW);<br>
+                            &nbsp;&nbsp;digitalWrite(ledC, HIGH);<br>
+                            &nbsp;} else {<br>
+                            &nbsp;&nbsp;digitalWrite(ledA, LOW);<br>
+                            &nbsp;&nbsp;digitalWrite(ledB, LOW);<br>
+                            &nbsp;&nbsp;digitalWrite(ledC, LOW);<br>
+                            &nbsp;}<br>
+                            } <br>
+
+                        </code>
+                    </div>
+                </section>
 
             </div>
 
@@ -443,7 +627,18 @@
             </div>
 
             <div class="sectionContent">
+                <p>The video isn't of very great quality, but you can clearly see that the prototype is working. When I "sit" on seats A and B, the LED for seat C lights up. When I then sit on seat C, all LEDs go out, because all scores are equal. </p>
+                
+                <button class="butt contButt videoButt"><span>Show me the video!</span></button>
 
+                <section class="modal videoModal">
+                    <div class="modalContent">
+                        <span class="modalClose">&times;</span>
+                        <video class="videoContainer" controls muted>
+                            <source src="videos/intimateBenchFinal.webm" type="video/webm">
+                        </video>
+                    </div>
+                </section>
             </div>
 
         </section>
